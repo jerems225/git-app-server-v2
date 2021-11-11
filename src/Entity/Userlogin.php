@@ -14,7 +14,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
  * @ORM\Entity(repositoryClass=UserloginRepository::class)
  */
 #[ApiResource(
-    security:'is_granted("ROLE_USER")',
     normalizationContext: ['groups'=>'read:collection','write:UserLogin'],
     collectionOperations:[
         'get'=>[

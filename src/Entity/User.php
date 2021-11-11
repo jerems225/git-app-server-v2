@@ -38,7 +38,6 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
                              'openapi_context' => [
                                  'security' => [['bearerAuth' => []]],
                              ],
-                             'security'=> 'is_granted("ROLE_USER")',
                            ],
                          //   'me'=> [
                          //      'pagination_enable' => false,

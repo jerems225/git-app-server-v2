@@ -16,7 +16,6 @@ use Symfony\Component\Validator\Constraints\Length;
  * @ORM\Entity
  */
 #[ApiResource(
-    security:'is_granted("ROLE_ADMIN")',
     normalizationContext: ['groups'=>['read:collection']],
     denormalizationContext:['groups'=>['write:User','write:Country']],
     collectionOperations:[

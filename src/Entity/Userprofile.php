@@ -29,7 +29,7 @@ use Vich\UploaderBundle\Mapping\Annotation as Vich;
  * @Vich\Uploadable()
  */
 #[ApiResource(
-    security: 'is_granted("ROLE_USER")',
+    // security: 'is_granted("ROLE_USER")',
     normalizationContext: ['groups'=>'read:collection'],
     denormalizationContext:['groups'=>['write:User','write:Userprofile','write:UserVerify']],
     collectionOperations:[

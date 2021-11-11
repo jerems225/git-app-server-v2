@@ -44,8 +44,8 @@ class JWTCreatedListener
                 'userprofile_id' => $user->getUserprofile()->getId()
             );
         }
-
         $event->setData($data);
     }
+    
 
 }

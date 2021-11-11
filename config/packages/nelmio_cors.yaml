@@ -9,6 +9,7 @@ nelmio_cors:
         forced_allow_origin_value: ~
     paths:
         '^/api_storage/':
+            origin_regex: false
             allow_origin: ['*']
             allow_headers: ['Content-Type', 'Authorization']
             allow_methods: ['POST', 'PUT', 'GET', 'DELETE']

@@ -2,8 +2,7 @@ security:
     enable_authenticator_manager: true
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
-            App\Entity\User:
-                algorithm: 'auto'
+            Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
    # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
         # used to reload user from session & other features (e.g. switch_user)
@@ -31,7 +30,6 @@ security:
             stateless: true
             provider: app_user_provider
             jwt: ~
-            entry_point : jwt
           
 
             # activate different ways to authenticate
@@ -47,6 +45,6 @@ security:
         # - { path: ^/profile, roles: ROLE_USER }
         - { path: ^/api_storage/User/Create, roles: PUBLIC_ACCESS }
         # - { path: ^/api_storage/check/docs, roles: IS_AUTHENTICATED_ANAONYMOUSLY }
-        - { path: ^/api_storage$, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api_storage$, roles: IS_AUTHENTICATED_FULLY}
         - { path: ^/api_storage/login$, roles: IS_AUTHENTICATED_ANAONYMOUSLY }
        

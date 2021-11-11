@@ -328,13 +328,13 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
                           return $this;
                       }
                   
-                      /**
-                       * @see UserInterface
-                       */
-                      public function getPassword(): ?string
-                      {
-                          return $this->password;
-                      }
+                        /**
+                         * @see PasswordAuthenticatedUserInterface
+                         */
+                        public function getPassword(): string
+                        {
+                            return $this->password;
+                        }
                   
                       public function setPassword(?string $password): self
                       {
@@ -440,6 +440,11 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
                           return $this;
                       }
                       
+                    /**
+                     * The public representation of the user (e.g. a username, an email address, etc.)
+                     *
+                     * @see UserInterface
+                     */
                       public function getUserIdentifier()
                       {
                           return (string) $this->email;

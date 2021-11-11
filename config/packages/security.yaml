@@ -2,20 +2,39 @@ security:
     enable_authenticator_manager: true
     # https://symfony.com/doc/current/security.html#registering-the-user-hashing-passwords
     password_hashers:
-        Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface: 'auto'
-    # https://symfony.com/doc/current/security.html#loading-the-user-the-user-provider
+            App\Entity\User:
+                algorithm: 'auto'
+   # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
-        users_in_memory: { memory: null }
+        # used to reload user from session & other features (e.g. switch_user)
+        app_user_provider:
+            entity:
+                class: App\Entity\User
+                property: email
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        main:
-            lazy: true
-            provider: users_in_memory
+        login:
+            pattern:  ^/api_storage/login$
+            stateless: true
+            #anonymous: true
+            provider: app_user_provider
+            json_login:
+                check_path: api_login
+                success_handler: lexik_jwt_authentication.handler.authentication_success
+                failure_handler: lexik_jwt_authentication.handler.authentication_failure
+            logout: 
+                path: api_logout
+        api:
+            pattern: ^/api_storage/
+            stateless: true
+            provider: app_user_provider
+            jwt: ~
+          
 
             # activate different ways to authenticate
-            # https://symfony.com/doc/current/security.html#the-firewall
+            # https://symfony.com/doc/current/security.html#firewalls-authentication
 
             # https://symfony.com/doc/current/security/impersonating_user.html
             # switch_user: true
@@ -25,3 +44,8 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+        - { path: ^/api_storage/User/Create}
+        # - { path: ^/api_storage/check/docs, roles: IS_AUTHENTICATED_ANAONYMOUSLY }
+        - { path: ^/api_storage$, roles: IS_AUTHENTICATED_FULLY }
+        - { path: ^/api_storage/login$, roles: IS_AUTHENTICATED_ANAONYMOUSLY }
+       

@@ -29,6 +29,8 @@ DirectoryIndex index.php
 <IfModule mod_rewrite.c>
     RewriteEngine On
 
+    RewriteCond %{HTTP:Authorization} ^(.*)
+    RewriteRule .* - [e=HTTP_AUTHORIZATION:%1]
     # Determine the RewriteBase automatically and set it as environment variable.
     # If you are using Apache aliases to do mass virtual hosting or installed the
     # project in a subdirectory, the base path will be prepended to allow proper
@@ -41,12 +43,11 @@ DirectoryIndex index.php
     RewriteCond %{REQUEST_URI}::$0 ^(/.+)/(.*)::\2$
     RewriteRule .* - [E=BASE:%1]
   
-    RewriteCond %{HTTP_HOST} ^http://3.125.240.171/git-ghana$ [NC,OR]
-    #RewriteCond %{HTTP_HOST} ^www.http://3.125.240.171/git-ghana$
+    RewriteCond %{HTTP_HOST} ^http://35.180.146.147/git-ghana$ [NC,OR]
     RewriteCond %{REQUEST_URI} !/public/
     RewriteRule (.*) /public/$1 [L]
 
-    SetEnvIf Authorization "(.*)" HTTP_AUTHORIZATION=$1
+   
 
     # Redirect to URI without front controller to prevent duplicate content
     # (with and without `/index.php`). Only do this redirect on the initial

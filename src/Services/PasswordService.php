@@ -2,21 +2,18 @@
 
 namespace App\Services;
 
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface as HasherUserPasswordHasherInterface;
+
 
 class PasswordService
 {
-    /**
-     * @var PassowrdService
-     */
-    private $userPasswordEncoder;
 
     /**
-     * @param UserPasswordEncoderInterface $userPasswordEncoder
+     * @param PasswordHasherInterface $userPasswordHash
      */
-    public function __construct(UserPasswordEncoderInterface $userPasswordEncoder)
+    public function __construct(HasherUserPasswordHasherInterface $userPasswordHash)
     {
-        $this->userPasswordEncoder = $userPasswordEncoder;
+        $this->userPasswordHash = $userPasswordHash;
     }
 
     /**
@@ -24,10 +21,10 @@ class PasswordService
      * @param string $password
      * @return string
      */
-    public function encode(object $entity, string $password): string
+    public function hashPassowrd($entity,string $password): string
     {
         
-        return $this->userPasswordEncoder->encodePassword($entity, $password);
+        return $this->userPasswordHash->hashPassword($entity,$password);
     }
 
     /**
@@ -37,16 +34,6 @@ class PasswordService
     public function formatRequirement(string $password)
     {
         return preg_match('#^(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*\W)#',$password);
-    }
-
-    /**
-     * @param object $entity
-     * @param string $password
-     * @return bool
-     */
-    public function isValid(object $entity, string $password): bool
-    {
-        return $this->userPasswordEncoder->isPasswordValid($entity, $password);
     }
     
 }

@@ -14,7 +14,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Serializer\Annotation\Groups;
 use Symfony\Component\Validator\Constraints\Email;
 use ApiPlatform\Core\Annotation\ApiProperty;
-
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 
 /**
  * User
@@ -87,7 +87,7 @@ use ApiPlatform\Core\Annotation\ApiProperty;
                   //filter
                   #[ApiFilter(SearchFilter::class,properties:['id'=>'exact', 'email'=>'partial'])]
                   
-                  class User implements UserInterface
+                  class User implements PasswordAuthenticatedUserInterface,UserInterface
                   {
                       /**
                        * @var int
@@ -439,7 +439,11 @@ use ApiPlatform\Core\Annotation\ApiProperty;
                   
                           return $this;
                       }
-                  
+                      
+                      public function getUserIdentifier()
+                      {
+                          return (string) $this->email;
+                      }
                   
                       /**
                        * A visual identifier that represents this user.

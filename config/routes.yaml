@@ -1,3 +1,3 @@
-api:
-    path: ^/api_storage
-    methods: ['POST']
+# api_login:
+#     path: ^/api_storage/login
+#     methods: ['POST']

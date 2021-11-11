@@ -92,13 +92,13 @@ class UserManager
      */
     public function registerAccount(User $user)
     {
-      
+  
         if ($this->findByEmail($user->getEmail())) {
             throw new BadRequestHttpException('This Email is Already Used!');
         }
-        
+
         $user->setEmail($user->getEmail());
-        $pass = $this->passwordService->encode($user, $user->getPassword());
+        $pass = $this->passwordService->hashPassowrd($user,$user->getPassword());
         // dd($pass);
         $user->setPassword($pass); 
         $user->setRoles($user->getRoles());
